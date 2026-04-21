@@ -108,19 +108,21 @@ Nem toda categoria precisa existir sempre.
 
 ### Verificação mínima do kit
 
-Se você estiver no repositório de desenvolvimento:
+Se você estiver dentro do payload público do kit:
 
 ```bash
-node products/hardless-skill-kit/scripts/validate-skill-kit.mjs
+node scripts/validate-skill-kit.mjs
 ```
 
 ou:
 
 ```bash
-make skill-kit-dist-validate
+node scripts/validate-skill-kit.mjs .
 ```
 
 ### Montar distribuição local
+
+Este passo é feito no repositório de desenvolvimento do Hardless, não no repositório público distribuído:
 
 ```bash
 make skill-kit-distribute
@@ -135,6 +137,14 @@ Isso gera:
 
 ```bash
 make skill-kit-dist-sync SKILL_KIT_REPO_DIR=/caminho/para/hardless-skill-kit
+```
+
+### Publicar atualização no repositório público
+
+No repositório de desenvolvimento do Hardless:
+
+```bash
+make publish-hardless-skill-kit
 ```
 
 ## Fluxo Recomendado de Uso
