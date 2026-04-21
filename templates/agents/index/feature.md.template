@@ -1,0 +1,14 @@
+# Feature Index
+
+## Objetivo
+
+Rotear tarefas de feature para regras obrigatórias e referências sob gatilho.
+
+## Regras obrigatórias
+
+- `agents/rules/feature_rules.md`
+- `agents/rules/architecture_rules.md`
+
+## Referências sob gatilho
+
+- `agents/reference/domain_examples.md`

@@ -1,0 +1,20 @@
+{
+  "policyVersion": "1",
+  "publicNamingMode": "neutral-only",
+  "forbiddenPatterns": [
+    "paytrainer",
+    "carolize"
+  ],
+  "allowedTopLevelCategories": [
+    "index",
+    "rules",
+    "reference",
+    "memory",
+    "manifest"
+  ],
+  "rules": [
+    "Do not cite real project names in distributed artifacts.",
+    "Prefer operational-role names over domain-specific names.",
+    "Do not create empty files only to simulate completeness."
+  ]
+}

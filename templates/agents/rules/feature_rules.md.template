@@ -1,0 +1,5 @@
+# Feature Rules
+
+- definir comportamento claro antes de expandir escopo;
+- evitar remover fluxo existente sem pedido explícito;
+- manter responsabilidade separada entre regra estrutural e exemplo.

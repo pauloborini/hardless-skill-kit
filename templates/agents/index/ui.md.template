@@ -1,0 +1,19 @@
+# UI Index
+
+## Objetivo
+
+Rotear tarefas de interface e apresentação.
+
+## Regras obrigatórias
+
+- `agents/rules/feature_rules.md`
+- `agents/rules/architecture_rules.md`
+
+## Referências sob gatilho
+
+- `agents/reference/domain_examples.md`
+
+## Observações
+
+- carregar apenas o contexto mínimo necessário;
+- preferir consistência estrutural antes de detalhe visual.

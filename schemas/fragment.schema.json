@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hardless Skill Kit Fragment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "fragmentId",
+    "sourcePath",
+    "rawText",
+    "operationalRoleCandidate",
+    "confidence",
+    "ambiguity"
+  ],
+  "properties": {
+    "fragmentId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourcePath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rawText": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operationalRoleCandidate": {
+      "type": "string",
+      "enum": ["index", "rules", "reference", "memory", "manifest", "unknown"]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "ambiguity": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    }
+  }
+}

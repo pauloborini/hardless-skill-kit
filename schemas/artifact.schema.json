@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hardless Skill Kit Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifactType", "outputPath", "derivedFrom", "validationStatus"],
+  "properties": {
+    "artifactType": {
+      "type": "string",
+      "enum": ["AGENTS", "index", "rules", "reference", "memory", "manifest"]
+    },
+    "outputPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "derivedFrom": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "validationStatus": {
+      "type": "string",
+      "enum": ["valid", "degraded", "blocked"]
+    }
+  }
+}

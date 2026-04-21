@@ -1,0 +1,28 @@
+{
+  "name": "hardless-skill-kit",
+  "version": "0.1.0",
+  "distributionMode": "clone-or-zip",
+  "requiredFiles": [
+    "README.md",
+    "SKILL.md",
+    "scripts/validate-skill-kit.mjs",
+    "prompts/discover.md",
+    "prompts/fragment.md",
+    "prompts/classify.md",
+    "prompts/synthesize.md",
+    "prompts/validate.md",
+    "templates/AGENTS.md.template",
+    "templates/agents/index/ui.md.template",
+    "templates/agents/index/diagnostic.md.template",
+    "templates/agents/rules/architecture_rules.md.template",
+    "templates/agents/rules/security_rules.md.template",
+    "templates/agents/rules/shared_rules.md.template",
+    "references/README.md",
+    "references/canonical-structure/AGENTS.example.md",
+    "references/canonical-structure/STRUCTURE.md",
+    "schemas/fragment.schema.json",
+    "schemas/artifact.schema.json",
+    "schemas/package.schema.json",
+    "manifests/naming-policy.json"
+  ]
+}

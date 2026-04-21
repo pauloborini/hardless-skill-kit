@@ -1,0 +1,6 @@
+# Architecture Rules
+
+- separar regras estruturais de exemplos e preferências;
+- não usar arquivos crus como contrato final quando houver pacote fragmentado válido;
+- preferir categorias previsíveis e pequenas;
+- bloquear quando a estrutura final depender de improviso excessivo.

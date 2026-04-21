@@ -1,0 +1,25 @@
+Este é o ponto de entrada único para agentes que operam neste projeto.
+
+## Primeiro Passo
+
+Antes de qualquer alteração:
+
+1. classifique o pedido;
+2. carregue apenas o contexto mínimo necessário;
+3. siga a precedência definida neste arquivo;
+4. não trate arquivos crus do projeto como contrato operacional final quando houver material fragmentado disponível.
+
+## Precedência
+
+1. `AGENTS.md`
+2. `agents/index/*`
+3. `agents/rules/*`
+4. `agents/reference/*`
+5. `agents/memory/*`
+
+## Fluxo
+
+- pergunta sem pedido de alteração: discussão
+- alteração pequena e clara: fluxo curto
+- alteração ampla ou arriscada: fluxo estruturado
+- ambiguidade relevante: bloquear ou pedir confirmação

@@ -1,0 +1,6 @@
+# Security Rules
+
+- não expor identidade de projetos reais;
+- não copiar contratos, URLs ou dados sensíveis para artefatos distribuíveis;
+- manifests devem resumir proveniência, não replicar textos longos sem necessidade;
+- qualquer violação de neutralização deve impedir validação `valid`.

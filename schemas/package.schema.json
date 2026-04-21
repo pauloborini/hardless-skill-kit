@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hardless Skill Kit Package",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "version", "requiredFiles"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "const": "hardless-skill-kit"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requiredFiles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

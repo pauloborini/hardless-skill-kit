@@ -1,0 +1,19 @@
+# Diagnostic Index
+
+## Objetivo
+
+Rotear investigação de bugs, regressões e comportamentos inesperados.
+
+## Regras obrigatórias
+
+- `agents/rules/architecture_rules.md`
+- `agents/rules/security_rules.md`
+
+## Referências sob gatilho
+
+- `agents/reference/domain_examples.md`
+
+## Observações
+
+- não assumir causa antes de mapear o fluxo;
+- registrar bloqueios e ambiguidade explicitamente.
