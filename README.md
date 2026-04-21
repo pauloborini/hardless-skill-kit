@@ -57,18 +57,15 @@ Não use este kit esperando:
 
 ## Instalação
 
+Você pode usar o kit de duas formas:
+
 ### Opção 1: Clone
 
-```bash
-git clone https://github.com/pauloborini/hardless-skill-kit.git
-cd hardless-skill-kit
-```
+Clone o repositório do kit e mantenha a pasta disponível para consulta.
 
 ### Opção 2: Zip
 
-1. Baixe o `.zip` do repositório público.
-2. Extraia a pasta.
-3. Abra a pasta extraída no seu editor ou use como material de referência para o seu workspace.
+Baixe o `.zip`, extraia a pasta e deixe esse conteúdo acessível no ambiente em que a LLM vai operar.
 
 ## O Que O Humano Deve Fazer
 
@@ -108,44 +105,14 @@ Nem toda categoria precisa existir sempre.
 
 ### Verificação mínima do kit
 
-Se você estiver dentro do payload público do kit:
+A validação principal, para quem usa o kit, é comportamental:
 
-```bash
-node scripts/validate-skill-kit.mjs
-```
+- a LLM entende o papel de `README.md` e `SKILL.md`;
+- a LLM consegue seguir as fases sem se perder;
+- a saída final fica pequena, canônica e neutra;
+- o resultado não vaza nomes ou referências indevidas.
 
-ou:
-
-```bash
-node scripts/validate-skill-kit.mjs .
-```
-
-### Montar distribuição local
-
-Este passo é feito no repositório de desenvolvimento do Hardless, não no repositório público distribuído:
-
-```bash
-make skill-kit-distribute
-```
-
-Isso gera:
-
-- staging em `.distribution/hardless-skill-kit`
-- zip em `.distribution/hardless-skill-kit.zip`
-
-### Sincronizar com clone local do repositório público
-
-```bash
-make skill-kit-dist-sync SKILL_KIT_REPO_DIR=/caminho/para/hardless-skill-kit
-```
-
-### Publicar atualização no repositório público
-
-No repositório de desenvolvimento do Hardless:
-
-```bash
-make publish-hardless-skill-kit
-```
+O script em `scripts/validate-skill-kit.mjs` existe como apoio técnico do kit, mas não é o ponto central de uso para o usuário final.
 
 ## Fluxo Recomendado de Uso
 
@@ -154,6 +121,16 @@ make publish-hardless-skill-kit
 3. agente lê as fontes do projeto alvo;
 4. agente executa `discover -> snapshot -> fragment -> classify -> synthesize -> validate -> export/apply`;
 5. humano revisa o pacote final quando necessário.
+
+## Como Saber Se Está Funcionando
+
+Você está usando o kit corretamente quando:
+
+- o agente usa `SKILL.md` como procedimento;
+- o agente consulta prompts, templates e references conforme a fase;
+- o agente não tenta improvisar a árvore final;
+- o pacote gerado tem `AGENTS.md` e categorias coerentes;
+- o resultado fica mais utilizável do que as fontes cruas originais.
 
 ## Guardrails Importantes
 
@@ -170,4 +147,4 @@ O foco atual é:
 
 - fortalecer templates e references;
 - melhorar a validação mínima;
-- garantir distribuição pública simples e autocontida.
+- garantir uma experiência simples e previsível para uso real.
