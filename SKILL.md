@@ -13,6 +13,7 @@ Você deve operar com o seguinte pipeline:
 5. `synthesize`
 6. `validate`
 7. `export/apply`
+8. `closeout-review`
 
 ## Regra central
 
@@ -136,6 +137,19 @@ O pacote final deve conter:
 - árvore `agents/` gerada;
 - manifests de proveniência e validação em `.hardless/manifests/`, quando aplicável.
 
+### 8. Closeout Review
+
+Depois de `export/apply`, você deve fazer uma revisão final do que acabou de gerar.
+
+Saída mínima:
+
+- lista de pendências restantes;
+- decisões em aberto;
+- recomendação objetiva para cada decisão relevante;
+- confirmação do estado final de `AGENTS.md`;
+- confirmação do estado final da pasta `agents/`;
+- indicação clara se o resultado está `ready`, `degraded-but-usable` ou `needs-followup`.
+
 ## Leituras obrigatórias por fase
 
 - `discover`: `prompts/discover.md`, `manifests/naming-policy.json`
@@ -143,6 +157,7 @@ O pacote final deve conter:
 - `classify`: `prompts/classify.md`, `schemas/fragment.schema.json`
 - `synthesize`: `prompts/synthesize.md`, `templates/`, `references/`
 - `validate`: `prompts/validate.md`, `schemas/`, `manifests/`
+- `closeout-review`: `prompts/validate.md`, `templates/`, artefatos gerados
 
 ## Guardrails
 
@@ -152,6 +167,7 @@ O pacote final deve conter:
 - não inflar a árvore final com arquivos vazios;
 - não marcar `valid` quando houver violação dos contratos mínimos;
 - `AGENTS.md` deve ser centralizador e enxuto, não um depósito de todas as regras.
+- não encerrar o trabalho sem explicitar pendências ou confirmar que não há pendências relevantes.
 
 ## Quando bloquear
 
@@ -162,3 +178,13 @@ Bloqueie a conclusão quando:
 - o pacote final depender demais de inferência fraca;
 - houver vazamento de identidade real;
 - os contratos mínimos dos `schemas/` não forem atendidos.
+
+## Fechamento obrigatório
+
+Ao concluir o fluxo, você deve sempre:
+
+- dizer se ainda existe pendência;
+- recomendar uma decisão quando houver ambiguidade ou conflito;
+- revisar se `AGENTS.md` já centraliza corretamente o novo método;
+- revisar se a pasta `agents/` contém as regras necessárias;
+- dizer explicitamente se o pacote final já pode ser considerado utilizável.
