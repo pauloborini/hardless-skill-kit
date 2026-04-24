@@ -1,6 +1,24 @@
 # Security Rules
 
-- não expor identidade de projetos reais;
-- não copiar contratos, URLs ou dados sensíveis para artefatos distribuíveis;
-- manifests devem resumir proveniência, não replicar textos longos sem necessidade;
-- qualquer violação de neutralização deve impedir validação `valid`.
+## Objetivo
+
+Concentrar regras obrigatórias de segurança, privacidade, logs, permissões e dados sensíveis.
+
+## Regras Obrigatórias
+
+- `<regra de segurança extraída das fontes>`
+
+## Proibições
+
+- `<restrição de segurança extraída das fontes>`
+
+## Checklist De Aplicação
+
+- [ ] segredos, credenciais e tokens não foram expostos;
+- [ ] PII e dados sensíveis foram tratados conforme regra do projeto;
+- [ ] logs, exemplos e mensagens foram revisados;
+- [ ] pendências ou lacunas foram informadas.
+
+## Proveniência
+
+- `<fonte original ou fragmento de origem>`

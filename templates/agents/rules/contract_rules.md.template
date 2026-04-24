@@ -1,0 +1,24 @@
+# Contract Rules
+
+## Objetivo
+
+Concentrar regras obrigatórias para contratos, DTOs, entidades, mappers, schemas, APIs e integrações.
+
+## Regras Obrigatórias
+
+- `<regra de contrato extraída das fontes>`
+
+## Proibições
+
+- `<restrição de contrato extraída das fontes>`
+
+## Checklist De Aplicação
+
+- [ ] nomes, tipos e campos foram preservados;
+- [ ] transformações e mappers foram considerados;
+- [ ] compatibilidade e migração foram avaliadas quando aplicável;
+- [ ] pendências ou lacunas foram informadas.
+
+## Proveniência
+
+- `<fonte original ou fragmento de origem>`

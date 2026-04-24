@@ -1,25 +1,204 @@
-Este é o ponto de entrada único para agentes que operam neste projeto.
+Este é o ponto de entrada único para agentes de IA neste projeto.
 
-## Primeiro Passo
+Este arquivo é dono do workflow, da precedência e do roteamento de contexto.
+Ele não deve acumular regras de domínio, arquitetura, UI, segurança ou contrato. Essas regras devem ficar em `agents/rules/*` e ser carregadas por meio dos índices em `agents/index/*`.
 
-Antes de qualquer alteração:
+## Primeiro Passo Obrigatório
 
-1. classifique o pedido;
-2. carregue apenas o contexto mínimo necessário;
-3. siga a precedência definida neste arquivo;
-4. não trate arquivos crus do projeto como contrato operacional final quando houver material fragmentado disponível.
+Antes de executar qualquer tarefa, siga o workflow deste arquivo.
+
+Objetivos:
+
+1. classificar o tipo da tarefa;
+2. carregar apenas o contexto mínimo necessário;
+3. aplicar as regras obrigatórias corretas;
+4. evitar decisões improvisadas quando houver material fragmentado disponível;
+5. registrar bloqueios, conflitos e lacunas quando o contexto não for suficiente.
+
+## Fluxo De Trabalho
+
+### Fase 1. Triagem Inicial
+
+Classifique o pedido do usuário antes de ler contexto adicional.
+
+1. Se for pergunta, opinião, explicação, análise ou discussão sem pedido explícito de alteração: usar Modo Discussão.
+2. Em Modo Discussão, responder antes de qualquer ação e não alterar arquivos.
+3. Se houver pedido explícito de alteração: seguir para as Fases 2, 3 e 4.
+4. Se houver pedido explícito para executar primeiro e responder depois: executar o workflow completo e responder ao final.
+
+### Fase 2. Identificar Tipo De Tarefa
+
+Classifique apenas pelo pedido do usuário.
+Escolha um tipo primário por execução. Se a tarefa for mista, escolha o tipo dominante e carregue conteúdos adicionais apenas por gatilho na Fase 3.
+
+Tipos permitidos:
+
+| Tipo | Quando usar |
+| --- | --- |
+| `feature` | nova funcionalidade, service, store, domínio ou fluxo de produto |
+| `ui` | tela, componente, layout, widget, texto visual ou interação |
+| `contract` | DTO, entity, mapper, API, schema, OpenAPI ou contrato externo |
+| `navigation` | rotas, navegação, guards, deep links ou fluxo entre telas |
+| `shared` | enums, value objects, helpers compartilhados ou modelos reutilizáveis |
+| `security` | segredos, PII, logs, permissões, ambientes ou dados sensíveis |
+| `diagnostic` | bug, erro, regressão, investigação ou comportamento inesperado |
+| `refactoring` | reorganização interna sem mudança intencional de comportamento |
+| `testing` | criação, ajuste ou execução de testes quando solicitado |
+
+### Fase 3. Selecionar Contexto Obrigatório
+
+A leitura obrigatória começa por `agents/index/<tipo>.md`.
+
+Mapeamento padrão:
+
+- `feature`: `agents/index/feature.md`
+- `ui`: `agents/index/ui.md`
+- `contract`: `agents/index/contract.md`
+- `navigation`: `agents/index/navigation.md`
+- `shared`: `agents/index/shared.md`
+- `security`: `agents/index/security.md`
+- `diagnostic`: `agents/index/diagnostic.md`
+- `refactoring`: `agents/index/refactoring.md`
+- `testing`: `agents/index/testing.md`
+
+Cada índice deve declarar:
+
+1. regras obrigatórias em `agents/rules/*`;
+2. referências sob gatilho em `agents/reference/*`;
+3. condições para carregar contexto adicional;
+4. lacunas conhecidas, se existirem.
+
+Se o índice do tipo primário não existir, não improvise. Informe `Contexto incompleto` e peça orientação do usuário.
+
+### Fase 4. Pré-confirmação De Contexto
+
+Antes de ler arquivos de contexto da tarefa, emitir:
+
+```text
+Pré-confirmação: Tipo: <tipo> | Contexto: <index + regras/referências acionadas>
+Arquivos a consultar: <lista de arquivos>
+Escopo: <1 linha>
+```
+
+Se não conseguir acessar arquivos obrigatórios:
+
+```text
+Contexto incompleto
+```
+
+e solicitar assistência do usuário.
+
+### Fase 5. Execução
+
+Depois da pré-confirmação:
+
+1. ler o índice primário;
+2. ler apenas as regras obrigatórias indicadas pelo índice;
+3. ler referências somente quando um gatilho do índice justificar;
+4. executar exatamente o escopo pedido;
+5. não ampliar escopo sem aprovação.
+
+### Fase 6. Validação Final
+
+Antes de concluir:
+
+1. confirmar quais regras foram aplicadas;
+2. informar pendências, conflitos ou lacunas restantes;
+3. dizer se o resultado está pronto, degradado mas utilizável ou precisa de follow-up;
+4. sugerir a decisão recomendada quando houver ambiguidade relevante.
+
+## Regras Anti-Loop
+
+Pré-confirmação inválida quando faltar tipo, contexto, arquivos ou escopo.
+
+Se a confirmação falhar:
+
+1. corrigir até 3 tentativas;
+2. informar `Tentativa X/3 - risco de loop`;
+3. após 3 falhas, parar e pedir ao usuário confirmação do tipo, conteúdo dos arquivos obrigatórios ou novo caminho de execução.
+
+Regra de progressão:
+
+- a cada 2 ou 3 pesquisas, produzir artefato concreto: decisão, plano, patch, diagnóstico ou checklist;
+- se não houver progresso após 3 ciclos, parar e pedir clarificação;
+- não continuar expandindo contexto sem hipótese operacional.
+
+Orçamento inicial de contexto:
+
+- máximo de 1 índice primário;
+- máximo de 1 subíndice, se existir;
+- até 2 regras ou referências acionadas por gatilho antes do primeiro artefato concreto.
 
 ## Precedência
 
 1. `AGENTS.md`
-2. `agents/index/*`
-3. `agents/rules/*`
-4. `agents/reference/*`
-5. `agents/memory/*`
+2. `agents/index/<tipo>.md`
+3. `agents/rules/*.md`
+4. `agents/reference/*.md`
+5. `agents/memory/*.md`, se existir
+6. código, testes, schemas e documentação do projeto
 
-## Fluxo
+Regras:
 
-- pergunta sem pedido de alteração: discussão
-- alteração pequena e clara: fluxo curto
-- alteração ampla ou arriscada: fluxo estruturado
-- ambiguidade relevante: bloquear ou pedir confirmação
+- `AGENTS.md` controla workflow, precedência e roteamento;
+- `agents/index/*` decide quais regras e referências entram no contexto;
+- `agents/rules/*` contém regras obrigatórias do projeto;
+- `agents/reference/*` contém exemplos, detalhes longos e material de apoio;
+- `agents/memory/*`, se existir, é complementar e nunca prevalece sobre este arquivo, índices ou regras;
+- código e contratos reais devem ser respeitados como evidência técnica, mas não substituem o workflow.
+
+## Estrutura De Contexto
+
+Índices esperados:
+
+```text
+agents/index/
+  feature.md
+  ui.md
+  contract.md
+  navigation.md
+  shared.md
+  security.md
+  diagnostic.md
+  refactoring.md
+  testing.md
+```
+
+Regras esperadas:
+
+```text
+agents/rules/
+  operational_rules.md
+  architecture_rules.md
+  feature_rules.md
+  ui_rules.md
+  contract_rules.md
+  navigation_rules.md
+  shared_rules.md
+  security_rules.md
+```
+
+Referências opcionais:
+
+```text
+agents/reference/
+```
+
+Memória opcional:
+
+```text
+agents/memory/
+```
+
+Arquivos inexistentes devem ser omitidos da pré-confirmação. Não crie nem cite arquivos vazios apenas para parecer completo.
+
+## Checklist Final
+
+Antes de responder ao usuário, verificar:
+
+- o tipo de tarefa foi identificado;
+- a pré-confirmação foi feita quando houve alteração;
+- os índices e regras corretos foram consultados;
+- referências foram usadas apenas sob gatilho;
+- o escopo não foi ampliado sem aprovação;
+- pendências e decisões em aberto foram informadas.

@@ -1,0 +1,30 @@
+# Contract Index
+
+## Objetivo
+
+Rotear tarefas que envolvem contratos, DTOs, entidades, mappers, schemas, APIs ou integrações externas.
+
+## Regras obrigatórias
+
+- `agents/rules/contract_rules.md`
+- `agents/rules/operational_rules.md`
+- `agents/rules/architecture_rules.md`
+- `agents/rules/security_rules.md`
+
+## Referências sob gatilho
+
+- `agents/reference/domain_examples.md`
+
+## Gatilhos
+
+- carregar regras de feature quando o contrato alterar comportamento de produto;
+- carregar regras de UI quando o contrato afetar tela, estado ou mensagem;
+- carregar regras compartilhadas quando houver enums, value objects ou helpers comuns;
+- carregar referências apenas para exemplos, tabelas ou contratos longos.
+
+## Checklist
+
+- fonte do contrato identificada;
+- nomes, tipos e campos preservados;
+- mapper ou transformação documentada quando aplicável;
+- riscos de compatibilidade explicitados.

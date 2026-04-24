@@ -1,0 +1,28 @@
+# Security Index
+
+## Objetivo
+
+Rotear tarefas que envolvem segurança, privacidade, permissões, logs, ambientes, segredos ou dados sensíveis.
+
+## Regras obrigatórias
+
+- `agents/rules/security_rules.md`
+- `agents/rules/operational_rules.md`
+- `agents/rules/architecture_rules.md`
+
+## Referências sob gatilho
+
+- `agents/reference/domain_examples.md`
+
+## Gatilhos
+
+- carregar regras de contrato quando a segurança depender de API, schema ou payload;
+- carregar regras de navigation quando envolver acesso, guards ou rotas;
+- carregar regras de UI quando mensagens, estados ou dados sensíveis aparecerem em tela.
+
+## Checklist
+
+- dados sensíveis identificados;
+- logs, exemplos e mensagens revisados;
+- riscos de exposição ou permissão explicitados;
+- ação insegura bloqueada ou submetida à confirmação.

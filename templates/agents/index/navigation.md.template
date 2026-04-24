@@ -1,0 +1,29 @@
+# Navigation Index
+
+## Objetivo
+
+Rotear tarefas que envolvem rotas, navegação, guards, deep links ou transição entre fluxos.
+
+## Regras obrigatórias
+
+- `agents/rules/navigation_rules.md`
+- `agents/rules/operational_rules.md`
+- `agents/rules/architecture_rules.md`
+- `agents/rules/security_rules.md`
+
+## Referências sob gatilho
+
+- `agents/reference/domain_examples.md`
+
+## Gatilhos
+
+- carregar regras de UI quando houver alteração visual no fluxo;
+- carregar regras de feature quando a navegação depender de estado de produto;
+- carregar regras de contrato quando rotas dependerem de payload, parâmetros ou API.
+
+## Checklist
+
+- entrada, saída e fallback do fluxo identificados;
+- guards e permissões considerados quando aplicável;
+- comportamento de usuário autenticado, convidado ou sem permissão preservado;
+- efeitos colaterais explicitados.

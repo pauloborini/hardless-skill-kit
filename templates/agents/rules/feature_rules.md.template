@@ -1,5 +1,24 @@
 # Feature Rules
 
-- definir comportamento claro antes de expandir escopo;
-- evitar remover fluxo existente sem pedido explícito;
-- manter responsabilidade separada entre regra estrutural e exemplo.
+## Objetivo
+
+Concentrar regras obrigatórias para criação ou alteração de funcionalidades.
+
+## Regras Obrigatórias
+
+- `<regra de feature extraída das fontes>`
+
+## Proibições
+
+- `<restrição de feature extraída das fontes>`
+
+## Checklist De Aplicação
+
+- [ ] comportamento esperado definido;
+- [ ] escopo preservado;
+- [ ] impactos em fluxos existentes considerados;
+- [ ] pendências ou lacunas foram informadas.
+
+## Proveniência
+
+- `<fonte original ou fragmento de origem>`

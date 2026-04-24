@@ -1,0 +1,24 @@
+# Operational Rules
+
+## Objetivo
+
+Concentrar regras obrigatórias de escopo, segurança operacional, confirmação, idioma, comandos, commits, testes e ações sensíveis.
+
+## Regras Obrigatórias
+
+- `<regra operacional extraída das fontes>`
+
+## Proibições
+
+- `<restrição operacional extraída das fontes>`
+
+## Checklist De Aplicação
+
+- [ ] escopo pedido foi preservado;
+- [ ] ações sensíveis foram confirmadas quando exigido;
+- [ ] comandos, testes, commits, deploys ou remoções seguem a regra do projeto;
+- [ ] pendências ou lacunas foram informadas.
+
+## Proveniência
+
+- `<fonte original ou fragmento de origem>`

@@ -7,8 +7,24 @@ Rotear tarefas de feature para regras obrigatórias e referências sob gatilho.
 ## Regras obrigatórias
 
 - `agents/rules/feature_rules.md`
+- `agents/rules/operational_rules.md`
 - `agents/rules/architecture_rules.md`
+- `agents/rules/shared_rules.md`
 
 ## Referências sob gatilho
 
 - `agents/reference/domain_examples.md`
+
+## Gatilhos
+
+- carregar regras de contrato quando a feature tocar DTO, API, schema ou persistência;
+- carregar regras de UI quando a feature alterar tela, componente ou interação;
+- carregar regras de segurança quando houver dados sensíveis, permissão, logs ou ambiente;
+- carregar referências apenas para exemplos ou detalhes longos necessários.
+
+## Checklist
+
+- comportamento esperado definido;
+- escopo preservado;
+- regras obrigatórias lidas antes da implementação;
+- lacunas ou decisões em aberto explicitadas.

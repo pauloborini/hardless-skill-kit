@@ -6,14 +6,25 @@ Rotear tarefas de interface e apresentação.
 
 ## Regras obrigatórias
 
-- `agents/rules/feature_rules.md`
 - `agents/rules/architecture_rules.md`
+- `agents/rules/operational_rules.md`
+- `agents/rules/ui_rules.md`
+- `agents/rules/shared_rules.md`
 
 ## Referências sob gatilho
 
 - `agents/reference/domain_examples.md`
 
-## Observações
+## Gatilhos
 
-- carregar apenas o contexto mínimo necessário;
-- preferir consistência estrutural antes de detalhe visual.
+- carregar regras de feature quando a UI alterar comportamento de produto;
+- carregar regras de contrato quando a UI depender de DTO, mapper ou API;
+- carregar regras de segurança quando houver dados sensíveis, logs ou permissão;
+- carregar referências apenas para padrões visuais, exemplos ou detalhes longos.
+
+## Checklist
+
+- componente, tela ou interação identificados;
+- regras de UI aplicadas antes de preferências visuais genéricas;
+- estados, erro, loading e vazio considerados quando aplicável;
+- lacunas ou decisões em aberto explicitadas.

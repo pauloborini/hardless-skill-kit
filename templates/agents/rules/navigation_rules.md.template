@@ -1,0 +1,24 @@
+# Navigation Rules
+
+## Objetivo
+
+Concentrar regras obrigatórias para rotas, navegação, guards, deep links e fluxo entre telas ou estados.
+
+## Regras Obrigatórias
+
+- `<regra de navegação extraída das fontes>`
+
+## Proibições
+
+- `<restrição de navegação extraída das fontes>`
+
+## Checklist De Aplicação
+
+- [ ] entradas, saídas e fallbacks foram considerados;
+- [ ] permissões e guards foram avaliados quando aplicável;
+- [ ] fluxos existentes não foram alterados sem aprovação;
+- [ ] pendências ou lacunas foram informadas.
+
+## Proveniência
+
+- `<fonte original ou fragmento de origem>`

@@ -1,6 +1,24 @@
 # Architecture Rules
 
-- separar regras estruturais de exemplos e preferências;
-- não usar arquivos crus como contrato final quando houver pacote fragmentado válido;
-- preferir categorias previsíveis e pequenas;
-- bloquear quando a estrutura final depender de improviso excessivo.
+## Objetivo
+
+Concentrar regras estruturais obrigatórias do projeto.
+
+## Regras Obrigatórias
+
+- `<regra arquitetural extraída das fontes>`
+
+## Proibições
+
+- `<restrição arquitetural extraída das fontes>`
+
+## Checklist De Aplicação
+
+- [ ] regras estruturais relevantes foram lidas;
+- [ ] responsabilidades entre camadas, módulos ou arquivos foram preservadas;
+- [ ] exceções e permissões especiais foram consideradas;
+- [ ] pendências ou lacunas foram informadas.
+
+## Proveniência
+
+- `<fonte original ou fragmento de origem>`

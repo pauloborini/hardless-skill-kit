@@ -1,6 +1,24 @@
 # Shared Rules
 
-- usar nomes orientados por papel operacional;
-- evitar arquivos vazios apenas para parecer completo;
-- quando faltar material suficiente, omitir a categoria e registrar a lacuna;
-- preferir estabilidade de estrutura a flexibilidade arbitrária.
+## Objetivo
+
+Concentrar regras obrigatórias para elementos compartilhados, nomes, enums, value objects, helpers e contratos reutilizáveis.
+
+## Regras Obrigatórias
+
+- `<regra compartilhada extraída das fontes>`
+
+## Proibições
+
+- `<restrição compartilhada extraída das fontes>`
+
+## Checklist De Aplicação
+
+- [ ] impacto em usos existentes considerado;
+- [ ] nomes e semântica preservados;
+- [ ] duplicação ou divergência evitada;
+- [ ] pendências ou lacunas foram informadas.
+
+## Proveniência
+
+- `<fonte original ou fragmento de origem>`

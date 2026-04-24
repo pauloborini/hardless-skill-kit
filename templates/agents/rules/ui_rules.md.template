@@ -1,0 +1,24 @@
+# UI Rules
+
+## Objetivo
+
+Concentrar regras obrigatórias para telas, componentes, layout, interação, estados visuais e textos de interface.
+
+## Regras Obrigatórias
+
+- `<regra de UI extraída das fontes>`
+
+## Proibições
+
+- `<restrição de UI extraída das fontes>`
+
+## Checklist De Aplicação
+
+- [ ] padrões visuais do projeto foram respeitados;
+- [ ] estados de loading, vazio, erro e sucesso foram considerados quando aplicável;
+- [ ] componentes existentes foram priorizados quando houver regra para isso;
+- [ ] pendências ou lacunas foram informadas.
+
+## Proveniência
+
+- `<fonte original ou fragmento de origem>`

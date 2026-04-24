@@ -1,0 +1,29 @@
+# Shared Index
+
+## Objetivo
+
+Rotear tarefas que envolvem modelos compartilhados, enums, value objects, helpers, formatadores ou contratos reutilizáveis.
+
+## Regras obrigatórias
+
+- `agents/rules/shared_rules.md`
+- `agents/rules/operational_rules.md`
+- `agents/rules/architecture_rules.md`
+- `agents/rules/contract_rules.md`
+
+## Referências sob gatilho
+
+- `agents/reference/domain_examples.md`
+
+## Gatilhos
+
+- carregar regras de feature quando a mudança afetar fluxo de produto;
+- carregar regras de UI quando valores compartilhados aparecerem na interface;
+- carregar regras de segurança quando houver dados sensíveis ou logs.
+
+## Checklist
+
+- impacto cross-feature identificado;
+- compatibilidade com usos existentes considerada;
+- nomes e semântica preservados;
+- migração ou fallback descrito quando necessário.
