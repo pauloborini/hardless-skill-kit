@@ -131,6 +131,15 @@ discover -> snapshot -> fragment -> classify -> synthesize -> validate -> export
 Não improvise a árvore final.
 Use os prompts, templates, references, schemas e manifests do kit apenas quando necessários para a fase atual.
 
+O `AGENTS.md` final deve ser apenas o centralizador do workflow, da precedência e do roteamento.
+Não coloque regras de domínio, arquitetura, UI, contrato, segurança ou operação diretamente no `AGENTS.md`; coloque essas regras nos arquivos adequados em `agents/rules/*`.
+
+Antes de sintetizar os arquivos finais, produza um mapa de cobertura simples relacionando:
+- fragmento ou regra de origem;
+- classificação operacional;
+- arquivo de destino;
+- pendência, conflito ou baixa confiança, se houver.
+
 Se houver ambiguidade relevante, conflito entre fontes ou falta de material suficiente, explicite isso em vez de forçar uma estrutura artificial.
 Ao terminar, faça uma revisão final das pendências, recomende a melhor decisão para cada uma e confirme se `AGENTS.md` e a pasta `agents/` ficaram realmente utilizáveis.
 ```
@@ -151,11 +160,15 @@ Agora faça o fechamento do Hardless Skill Kit sobre o que você acabou de gerar
 3. Para cada uma, me diga qual decisão você recomenda e por quê.
 4. Revise os artefatos gerados e confirme se:
    - `AGENTS.md` está completo, centralizador e apontando para o novo método;
+   - `AGENTS.md` não contém regras que deveriam estar em `agents/rules/*`;
    - as regras necessárias já estão distribuídas na pasta `agents/`;
+   - os índices em `agents/index/*` apontam apenas para regras e referências existentes;
+   - o mapa de cobertura mostra destino para as regras relevantes das fontes originais;
    - não ficaram categorias vazias, artificiais ou redundantes;
    - há algum ponto em que a estrutura ainda esteja fraca, degradada ou dependente de inferência.
-5. Se estiver tudo suficientemente consistente, me diga isso de forma objetiva.
-6. Se não estiver, me diga exatamente o que ainda precisa ser ajustado antes de considerar o processo concluído.
+5. Classifique o resultado final como `ready`, `degraded-but-usable` ou `needs-followup`.
+6. Se estiver tudo suficientemente consistente, me diga isso de forma objetiva.
+7. Se não estiver, me diga exatamente o que ainda precisa ser ajustado antes de considerar o processo concluído.
 ```
 
 Esse fechamento é importante porque o kit pode terminar com status útil, mas ainda deixar decisões abertas para revisão humana.
@@ -199,7 +212,7 @@ Também é esperado que, no fim, a LLM:
 1. humano posiciona o kit;
 2. agente lê `SKILL.md`;
 3. agente lê as fontes do projeto alvo;
-4. agente executa `discover -> snapshot -> fragment -> classify -> synthesize -> validate -> export/apply`;
+4. agente executa `discover -> snapshot -> fragment -> classify -> synthesize -> validate -> export/apply -> closeout-review`;
 5. agente faz uma revisão final de pendências e consistência;
 6. humano revisa o pacote final quando necessário.
 

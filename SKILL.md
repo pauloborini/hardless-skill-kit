@@ -110,6 +110,7 @@ Leia [prompts/synthesize.md](prompts/synthesize.md).
 
 Saída mínima:
 
+- mapa de cobertura entre fragmentos, classificação e arquivo de destino;
 - proposta de `AGENTS.md`;
 - proposta das categorias necessárias;
 - lista de categorias omitidas por falta de material.
@@ -146,6 +147,7 @@ Saída mínima:
 - lista de pendências restantes;
 - decisões em aberto;
 - recomendação objetiva para cada decisão relevante;
+- confirmação de que os fragmentos relevantes têm destino no mapa de cobertura;
 - confirmação do estado final de `AGENTS.md`;
 - confirmação do estado final da pasta `agents/`;
 - indicação clara se o resultado está `ready`, `degraded-but-usable` ou `needs-followup`.
@@ -167,6 +169,8 @@ Saída mínima:
 - não inflar a árvore final com arquivos vazios;
 - não marcar `valid` quando houver violação dos contratos mínimos;
 - `AGENTS.md` deve ser centralizador e enxuto, não um depósito de todas as regras.
+- regras de domínio, arquitetura, UI, contrato, segurança e operação devem ficar em `agents/rules/*`, não no `AGENTS.md`.
+- não concluir síntese sem mapa de cobertura entre fragmentos e arquivos de destino.
 - não encerrar o trabalho sem explicitar pendências ou confirmar que não há pendências relevantes.
 
 ## Quando bloquear
@@ -186,5 +190,7 @@ Ao concluir o fluxo, você deve sempre:
 - dizer se ainda existe pendência;
 - recomendar uma decisão quando houver ambiguidade ou conflito;
 - revisar se `AGENTS.md` já centraliza corretamente o novo método;
+- revisar se `AGENTS.md` não recebeu regras que deveriam estar em `agents/rules/*`;
 - revisar se a pasta `agents/` contém as regras necessárias;
+- revisar se o mapa de cobertura explica o destino das regras relevantes;
 - dizer explicitamente se o pacote final já pode ser considerado utilizável.
