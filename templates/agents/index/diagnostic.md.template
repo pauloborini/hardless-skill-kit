@@ -6,8 +6,9 @@ Rotear investigação de bugs, regressões e comportamentos inesperados.
 
 ## Regras obrigatórias
 
-- `agents/rules/architecture_rules.md`
+- `agents/rules/diagnostic_rules.md`
 - `agents/rules/operational_rules.md`
+- `agents/rules/architecture_rules.md`
 - `agents/rules/security_rules.md`
 - `agents/rules/shared_rules.md`
 
@@ -17,7 +18,7 @@ Rotear investigação de bugs, regressões e comportamentos inesperados.
 
 ## Gatilhos
 
-- carregar regras de contrato quando o erro envolver API, DTO, mapper ou schema;
+- carregar regras de contrato quando o erro envolver API, DTO, mapper, schema ou persistência;
 - carregar regras de UI quando o erro ocorrer em tela, componente ou interação;
 - carregar referências quando precisar comparar comportamento esperado.
 
@@ -26,4 +27,6 @@ Rotear investigação de bugs, regressões e comportamentos inesperados.
 - sintoma separado de causa;
 - fluxo real mapeado antes de propor correção;
 - hipótese validada contra código, contrato ou regra carregada;
+- impacto do pedido do usuário no projeto avaliado antes de sugerir mudança;
+- correção proposta limitada à causa confirmada ou explicitamente marcada como hipótese;
 - bloqueios e ambiguidade registrados explicitamente.

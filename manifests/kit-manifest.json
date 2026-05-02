@@ -24,6 +24,7 @@
     "templates/agents/rules/architecture_rules.md.template",
     "templates/agents/rules/operational_rules.md.template",
     "templates/agents/rules/feature_rules.md.template",
+    "templates/agents/rules/diagnostic_rules.md.template",
     "templates/agents/rules/ui_rules.md.template",
     "templates/agents/rules/contract_rules.md.template",
     "templates/agents/rules/navigation_rules.md.template",

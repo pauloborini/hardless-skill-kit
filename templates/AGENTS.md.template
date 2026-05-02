@@ -45,9 +45,9 @@ Tipos permitidos:
 | `refactoring` | reorganização interna sem mudança intencional de comportamento |
 | `testing` | criação, ajuste ou execução de testes quando solicitado |
 
-### Fase 3. Selecionar Contexto Obrigatório
+### Fase 3. Tentar Ler Índice Primário
 
-A leitura obrigatória começa por `agents/index/<tipo>.md`.
+A entrada única de contexto é `agents/index/<tipo>.md`.
 
 Mapeamento padrão:
 
@@ -61,6 +61,21 @@ Mapeamento padrão:
 - `refactoring`: `agents/index/refactoring.md`
 - `testing`: `agents/index/testing.md`
 
+Tente ler o arquivo de índice correspondente ao tipo classificado.
+
+Se o índice do tipo primário não existir ou não for acessível, não improvise. Informe:
+
+```text
+Contexto incompleto
+Tipo: <tipo>
+Motivo: Índice agents/index/<tipo>.md não encontrado
+Ação solicitada: confirmar tipo ou fornecer índice correto
+```
+
+Pare aqui. Não prossiga sem índice válido.
+
+Se o índice existir, mantenha seu conteúdo carregado e prossiga para a Fase 4.
+
 Cada índice deve declarar:
 
 1. regras obrigatórias em `agents/rules/*`;
@@ -68,11 +83,9 @@ Cada índice deve declarar:
 3. condições para carregar contexto adicional;
 4. lacunas conhecidas, se existirem.
 
-Se o índice do tipo primário não existir, não improvise. Informe `Contexto incompleto` e peça orientação do usuário.
-
 ### Fase 4. Pré-confirmação De Contexto
 
-Antes de ler arquivos de contexto da tarefa, emitir:
+Antes de ler regras e referências, emitir:
 
 ```text
 Pré-confirmação: Tipo: <tipo> | Contexto: <index + regras/referências acionadas>
@@ -88,11 +101,13 @@ Contexto incompleto
 
 e solicitar assistência do usuário.
 
+A pré-confirmação é informativa. Emita o bloco e prossiga imediatamente com leitura e execução. Não pause para aguardar aprovação nesta fase.
+
 ### Fase 5. Execução
 
 Depois da pré-confirmação:
 
-1. ler o índice primário;
+1. usar o índice primário já carregado na Fase 3;
 2. ler apenas as regras obrigatórias indicadas pelo índice;
 3. ler referências somente quando um gatilho do índice justificar;
 4. executar exatamente o escopo pedido;
@@ -170,6 +185,7 @@ Regras esperadas:
 agents/rules/
   operational_rules.md
   architecture_rules.md
+  diagnostic_rules.md
   feature_rules.md
   ui_rules.md
   contract_rules.md

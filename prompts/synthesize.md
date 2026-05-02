@@ -13,6 +13,8 @@ Exemplos, contratos longos e detalhes auxiliares devem ficar em `agents/referenc
 - começar por `AGENTS.md`;
 - usar `templates/AGENTS.md.template` como base operacional do `AGENTS.md`;
 - manter `AGENTS.md` focado em workflow, precedência, triagem, pré-confirmação e anti-loop;
+- garantir que a Fase 3 tente ler e validar `agents/index/<tipo>.md` antes da pré-confirmação;
+- garantir que a Fase 4 use o índice já carregado para listar regras/referências acionadas e não pause aguardando aprovação;
 - não colocar regras de domínio, UI, arquitetura, segurança ou contrato diretamente em `AGENTS.md`;
 - gerar apenas categorias sustentadas pelo material disponível;
 - preferir nomes previsíveis e neutros;
@@ -54,6 +56,7 @@ Gerar apenas arquivos sustentados pelo material disponível, usando nomes previs
 - `agents/rules/architecture_rules.md`
 - `agents/rules/operational_rules.md`
 - `agents/rules/feature_rules.md`
+- `agents/rules/diagnostic_rules.md`
 - `agents/rules/ui_rules.md`
 - `agents/rules/contract_rules.md`
 - `agents/rules/navigation_rules.md`

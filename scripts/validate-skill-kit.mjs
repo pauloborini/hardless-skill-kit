@@ -122,4 +122,31 @@ for (const filename of requiredTopLevelFiles) {
   }
 }
 
+const indexTemplateDir = path.join(rootDir, "templates", "agents", "index");
+if (fs.existsSync(indexTemplateDir)) {
+  const missingIndexTargets = [];
+  const indexTemplates = fs
+    .readdirSync(indexTemplateDir)
+    .filter((filename) => filename.endsWith(".md.template"));
+
+  for (const filename of indexTemplates) {
+    const indexPath = path.join(indexTemplateDir, filename);
+    const contents = fs.readFileSync(indexPath, "utf8");
+    const linkedPaths = [...contents.matchAll(/`(agents\/(?:rules|reference)\/[^`]+\.md)`/g)].map(
+      (match) => match[1],
+    );
+
+    for (const linkedPath of linkedPaths) {
+      const expectedTemplatePath = path.join(rootDir, "templates", `${linkedPath}.template`);
+      if (!fs.existsSync(expectedTemplatePath)) {
+        missingIndexTargets.push(`${path.relative(rootDir, indexPath)} -> ${linkedPath}`);
+      }
+    }
+  }
+
+  if (missingIndexTargets.length > 0) {
+    fail(`index templates reference missing rule/reference templates:\n${missingIndexTargets.join("\n")}`);
+  }
+}
+
 console.log("Hardless Skill Kit validation passed.");

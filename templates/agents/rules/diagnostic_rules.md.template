@@ -1,0 +1,34 @@
+# Diagnostic Rules
+
+## Objetivo
+
+Concentrar regras obrigatórias para investigação de bugs, regressões, comportamentos inesperados, riscos no pedido do usuário e análise causal antes de qualquer correção.
+
+## Regras Obrigatórias
+
+- Separar sintoma, evidência, hipótese, causa confirmada e correção proposta.
+- Mapear o fluxo real no código antes de concluir diagnóstico ou propor alteração.
+- Verificar se o pedido do usuário pode quebrar regra do projeto, contrato, segurança, estado ou comportamento existente.
+- Confrontar hipóteses com código, logs, testes, contrato, schema ou documentação carregada.
+- Declarar explicitamente quando a causa ainda não foi comprovada.
+- Preferir correção mínima ligada à causa confirmada.
+
+## Proibições
+
+- Não tratar suposição como causa raiz.
+- Não ampliar escopo de correção sem evidência e aprovação.
+- Não remover código, fluxo, dependência ou contrato durante investigação sem pedido explícito.
+- Não mascarar ambiguidade relevante como diagnóstico concluído.
+
+## Checklist De Aplicação
+
+- [ ] pedido do usuário classificado como diagnóstico quando envolver bug, erro, regressão, investigação, análise de comportamento inesperado ou validação crítica de uma sugestão;
+- [ ] sintoma e impacto foram descritos separadamente;
+- [ ] caminho real de execução foi rastreado antes da recomendação;
+- [ ] hipótese principal foi validada contra evidência técnica;
+- [ ] riscos da solução solicitada foram apontados quando existirem;
+- [ ] pendências, lacunas e próximos passos foram informados.
+
+## Proveniência
+
+- regra base do Hardless Skill Kit para diagnóstico mínimo obrigatório.
