@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hardless Skill Kit External References Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["references"],
+  "properties": {
+    "references": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/referenceEntry"
+      }
+    }
+  },
+  "$defs": {
+    "referenceEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceFile",
+        "referencedPath",
+        "status",
+        "reason",
+        "recommendation"
+      ],
+      "properties": {
+        "sourceFile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "referencedPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": ["valid", "missing", "fragile", "should-internalize"]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recommendation": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

@@ -122,7 +122,7 @@ for (const filename of requiredTopLevelFiles) {
   }
 }
 
-const indexTemplateDir = path.join(rootDir, "templates", "agents", "index");
+const indexTemplateDir = path.join(rootDir, "templates", "project-context", "index");
 if (fs.existsSync(indexTemplateDir)) {
   const missingIndexTargets = [];
   const indexTemplates = fs
@@ -132,7 +132,7 @@ if (fs.existsSync(indexTemplateDir)) {
   for (const filename of indexTemplates) {
     const indexPath = path.join(indexTemplateDir, filename);
     const contents = fs.readFileSync(indexPath, "utf8");
-    const linkedPaths = [...contents.matchAll(/`(agents\/(?:rules|reference)\/[^`]+\.md)`/g)].map(
+    const linkedPaths = [...contents.matchAll(/`(project-context\/(?:rules|reference)\/[^`]+\.md)`/g)].map(
       (match) => match[1],
     );
 

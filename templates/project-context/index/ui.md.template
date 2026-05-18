@@ -6,14 +6,14 @@ Rotear tarefas de interface e apresentação.
 
 ## Regras obrigatórias
 
-- `agents/rules/architecture_rules.md`
-- `agents/rules/operational_rules.md`
-- `agents/rules/ui_rules.md`
-- `agents/rules/shared_rules.md`
+- `project-context/rules/architecture_rules.md`
+- `project-context/rules/operational_rules.md`
+- `project-context/rules/ui_rules.md`
+- `project-context/rules/shared_rules.md`
 
 ## Referências sob gatilho
 
-- `agents/reference/domain_examples.md`
+- `project-context/reference/domain_examples.md`
 
 ## Gatilhos
 

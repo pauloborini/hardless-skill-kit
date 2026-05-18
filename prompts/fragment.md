@@ -36,6 +36,9 @@ O objetivo é preservar todas as regras relevantes em fragmentos menores, rastre
 - não descartar regra porque parece específica demais;
 - não mover decisão para inferência quando a fonte original traz uma regra explícita;
 - quando houver dúvida, manter o fragmento e marcar baixa confiança na classificação posterior.
+- ao iniciar, marcar `fragment` como `in_progress` em `.hardless/manifests/run-state.json`;
+- ao finalizar a fase, marcar `fragment` como `produced`;
+- marcar `fragment` como `validated` quando a saída mínima estiver consistente e cobrindo as fontes previstas em `snapshot`.
 
 ## Saída Mínima Por Fragmento
 
@@ -45,3 +48,4 @@ O objetivo é preservar todas as regras relevantes em fragmentos menores, rastre
 - texto preservado ou síntese fiel;
 - tipo estrutural inicial: seção, regra, checklist, exemplo, tabela, preferência, metadado ou desconhecido;
 - observações de conflito, duplicidade ou ambiguidade.
+- atualização do checkpoint da fase.

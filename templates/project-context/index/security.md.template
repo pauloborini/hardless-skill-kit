@@ -6,13 +6,13 @@ Rotear tarefas que envolvem segurança, privacidade, permissões, logs, ambiente
 
 ## Regras obrigatórias
 
-- `agents/rules/security_rules.md`
-- `agents/rules/operational_rules.md`
-- `agents/rules/architecture_rules.md`
+- `project-context/rules/security_rules.md`
+- `project-context/rules/operational_rules.md`
+- `project-context/rules/architecture_rules.md`
 
 ## Referências sob gatilho
 
-- `agents/reference/domain_examples.md`
+- `project-context/reference/domain_examples.md`
 
 ## Gatilhos
 

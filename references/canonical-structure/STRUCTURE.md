@@ -8,13 +8,13 @@ Descrever como interpretar a estrutura canônica sem amarrar o kit a um domínio
 
 - `AGENTS.md`
   - entrypoint humano e operacional do pacote gerado
-- `agents/index/*`
+- `project-context/index/*`
   - roteadores por tipo de tarefa
-- `agents/rules/*`
+- `project-context/rules/*`
   - regras normativas e obrigatórias
-- `agents/reference/*`
+- `project-context/reference/*`
   - apoio, exemplos e contratos longos
-- `agents/memory/*`
+- `project-context/memory/*`
   - preferências complementares persistentes
 - `.hardless/manifests/*`
   - rastreabilidade, cobertura e validação

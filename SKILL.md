@@ -15,6 +15,14 @@ Você deve operar com o seguinte pipeline:
 7. `export/apply`
 8. `closeout-review`
 
+## Estado De Execução
+
+Durante o processo, a execução deve manter checkpoint em:
+
+- `.hardless/manifests/run-state.json`
+
+Esse arquivo é obrigatório sempre que houver trabalho multi-etapa, para permitir retomada confiável após interrupção.
+
 ## Regra central
 
 Você não deve improvisar a árvore final livremente.
@@ -34,7 +42,7 @@ O pacote final deve seguir a estrutura canônica do kit:
 
 ```text
 AGENTS.md
-agents/
+project-context/
   index/
   rules/
   reference/
@@ -80,11 +88,14 @@ Saída mínima:
 
 ### 2. Snapshot
 
+Leia [prompts/snapshot.md](prompts/snapshot.md).
+
 Congele o inventário textual relevante antes de reorganizar.
 
 Saída mínima:
 
 - mapa entre fonte original e unidades processáveis.
+- checkpoint da fase em `.hardless/manifests/run-state.json`
 
 ### 3. Fragment
 
@@ -126,6 +137,7 @@ Saída mínima:
 - lacunas;
 - risco de vazamento de identidade;
 - aderência aos `schemas/`.
+- atualização de checkpoint com fases `validated` vs `produced`.
 
 ### 7. Export/Apply
 
@@ -135,8 +147,10 @@ O pacote final deve conter:
 
 - `SKILL.md` não entra no pacote gerado para o projeto do usuário;
 - `AGENTS.md` gerado;
-- árvore `agents/` gerada;
+- árvore `project-context/` gerada;
 - manifests de proveniência e validação em `.hardless/manifests/`, quando aplicável.
+- relatório de dependências externas em `.hardless/manifests/external-references-report.json`, quando `project-context/` citar arquivos fora da própria pasta.
+- estado final de execução em `.hardless/manifests/run-state.json`.
 
 ### 8. Closeout Review
 
@@ -149,12 +163,15 @@ Saída mínima:
 - recomendação objetiva para cada decisão relevante;
 - confirmação de que os fragmentos relevantes têm destino no mapa de cobertura;
 - confirmação do estado final de `AGENTS.md`;
-- confirmação do estado final da pasta `agents/`;
+- confirmação do estado final da pasta `project-context/`;
+- aviso explícito ao usuário sobre referências externas encontradas em `project-context/`, com recomendação do que deveria ser internalizado;
+- confirmação do estado final de `.hardless/manifests/run-state.json`;
 - indicação clara se o resultado está `ready`, `degraded-but-usable` ou `needs-followup`.
 
 ## Leituras obrigatórias por fase
 
 - `discover`: `prompts/discover.md`, `manifests/naming-policy.json`
+- `snapshot`: `prompts/snapshot.md`
 - `fragment`: `prompts/fragment.md`, `schemas/fragment.schema.json`
 - `classify`: `prompts/classify.md`, `schemas/fragment.schema.json`
 - `synthesize`: `prompts/synthesize.md`, `templates/`, `references/`
@@ -169,7 +186,10 @@ Saída mínima:
 - não inflar a árvore final com arquivos vazios;
 - não marcar `valid` quando houver violação dos contratos mínimos;
 - `AGENTS.md` deve ser centralizador e enxuto, não um depósito de todas as regras.
-- regras de domínio, arquitetura, UI, contrato, segurança e operação devem ficar em `agents/rules/*`, não no `AGENTS.md`.
+- regras de domínio, arquitetura, UI, contrato, segurança e operação devem ficar em `project-context/rules/*`, não no `AGENTS.md`.
+- dependências externas de arquivos dentro de `project-context/` devem ser mapeadas e reportadas, não escondidas;
+- fase `in_progress` nunca pode ser tratada como concluída após interrupção;
+- fase só pode ser considerada retomável como concluída quando estiver marcada como `validated` em `.hardless/manifests/run-state.json`;
 - não concluir síntese sem mapa de cobertura entre fragmentos e arquivos de destino.
 - não encerrar o trabalho sem explicitar pendências ou confirmar que não há pendências relevantes.
 
@@ -181,6 +201,7 @@ Bloqueie a conclusão quando:
 - a classificação estiver majoritariamente ambígua;
 - o pacote final depender demais de inferência fraca;
 - houver vazamento de identidade real;
+- o estado de execução estiver corrompido ou inconsistente a ponto de impedir retomada segura;
 - os contratos mínimos dos `schemas/` não forem atendidos.
 
 ## Fechamento obrigatório
@@ -190,7 +211,9 @@ Ao concluir o fluxo, você deve sempre:
 - dizer se ainda existe pendência;
 - recomendar uma decisão quando houver ambiguidade ou conflito;
 - revisar se `AGENTS.md` já centraliza corretamente o novo método;
-- revisar se `AGENTS.md` não recebeu regras que deveriam estar em `agents/rules/*`;
-- revisar se a pasta `agents/` contém as regras necessárias;
+- revisar se `AGENTS.md` não recebeu regras que deveriam estar em `project-context/rules/*`;
+- revisar se a pasta `project-context/` contém as regras necessárias;
+- revisar se dependências externas de `project-context/` foram registradas em `.hardless/manifests/external-references-report.json`;
+- revisar se `.hardless/manifests/run-state.json` marca corretamente fases `validated`, `produced`, `in_progress` ou `failed`;
 - revisar se o mapa de cobertura explica o destino das regras relevantes;
 - dizer explicitamente se o pacote final já pode ser considerado utilizável.

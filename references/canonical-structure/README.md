@@ -4,7 +4,7 @@ Estrutura neutra de referência:
 
 ```text
 AGENTS.md
-agents/
+project-context/
   index/
   rules/
   reference/

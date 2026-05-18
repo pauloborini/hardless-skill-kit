@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hardless Skill Kit Run State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "runId",
+    "status",
+    "currentPhase",
+    "phaseStates",
+    "artifactsWritten",
+    "lastUpdatedAt"
+  ],
+  "properties": {
+    "runId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["running", "interrupted", "blocked", "completed"]
+    },
+    "currentPhase": {
+      "type": "string",
+      "enum": [
+        "discover",
+        "snapshot",
+        "fragment",
+        "classify",
+        "synthesize",
+        "validate",
+        "export_apply",
+        "closeout_review"
+      ]
+    },
+    "phaseStates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "discover",
+        "snapshot",
+        "fragment",
+        "classify",
+        "synthesize",
+        "validate",
+        "export_apply",
+        "closeout_review"
+      ],
+      "properties": {
+        "discover": { "$ref": "#/$defs/phaseState" },
+        "snapshot": { "$ref": "#/$defs/phaseState" },
+        "fragment": { "$ref": "#/$defs/phaseState" },
+        "classify": { "$ref": "#/$defs/phaseState" },
+        "synthesize": { "$ref": "#/$defs/phaseState" },
+        "validate": { "$ref": "#/$defs/phaseState" },
+        "export_apply": { "$ref": "#/$defs/phaseState" },
+        "closeout_review": { "$ref": "#/$defs/phaseState" }
+      }
+    },
+    "artifactsWritten": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifactState"
+      }
+    },
+    "pendingActions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "lastUpdatedAt": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "phaseState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["not_started", "in_progress", "produced", "validated", "failed"]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "artifactState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["outputPath", "phase", "validationStatus"],
+      "properties": {
+        "outputPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "discover",
+            "snapshot",
+            "fragment",
+            "classify",
+            "synthesize",
+            "validate",
+            "export_apply",
+            "closeout_review"
+          ]
+        },
+        "validationStatus": {
+          "type": "string",
+          "enum": ["valid", "degraded", "blocked", "unknown"]
+        },
+        "fingerprint": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

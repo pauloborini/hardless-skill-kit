@@ -1,7 +1,20 @@
 Este é o ponto de entrada único para agentes de IA neste projeto.
 
 Este arquivo é dono do workflow, da precedência e do roteamento de contexto.
-Ele não deve acumular regras de domínio, arquitetura, UI, segurança ou contrato. Essas regras devem ficar em `agents/rules/*` e ser carregadas por meio dos índices em `agents/index/*`.
+Ele não deve acumular regras de domínio, arquitetura, UI, segurança ou contrato. Essas regras devem ficar em `project-context/` e ser carregadas por meio dos índices em `project-context/index/*`.
+
+## Fonte Canônica Das Regras
+
+`project-context/` é a fonte canônica das regras do projeto.
+
+Regras:
+
+- `AGENTS.md` define apenas workflow, precedência e roteamento de contexto;
+- regras obrigatórias do projeto vivem em `project-context/rules/*`;
+- referências operacionais e exemplos vivem em `project-context/reference/*`;
+- memória complementar, quando existir, vive em `project-context/memory/*`;
+- arquivos fora de `project-context/` podem ser citados quando o contrato operacional atual realmente depender deles, mas não se tornam fonte canônica de regra por isso;
+- quando uma regra em `project-context/` depender de arquivo externo, essa dependência deve ser tratada como acoplamento explícito e idealmente internalizada no futuro.
 
 ## Primeiro Passo Obrigatório
 
@@ -47,19 +60,19 @@ Tipos permitidos:
 
 ### Fase 3. Tentar Ler Índice Primário
 
-A entrada única de contexto é `agents/index/<tipo>.md`.
+A entrada única de contexto é `project-context/index/<tipo>.md`.
 
 Mapeamento padrão:
 
-- `feature`: `agents/index/feature.md`
-- `ui`: `agents/index/ui.md`
-- `contract`: `agents/index/contract.md`
-- `navigation`: `agents/index/navigation.md`
-- `shared`: `agents/index/shared.md`
-- `security`: `agents/index/security.md`
-- `diagnostic`: `agents/index/diagnostic.md`
-- `refactoring`: `agents/index/refactoring.md`
-- `testing`: `agents/index/testing.md`
+- `feature`: `project-context/index/feature.md`
+- `ui`: `project-context/index/ui.md`
+- `contract`: `project-context/index/contract.md`
+- `navigation`: `project-context/index/navigation.md`
+- `shared`: `project-context/index/shared.md`
+- `security`: `project-context/index/security.md`
+- `diagnostic`: `project-context/index/diagnostic.md`
+- `refactoring`: `project-context/index/refactoring.md`
+- `testing`: `project-context/index/testing.md`
 
 Tente ler o arquivo de índice correspondente ao tipo classificado.
 
@@ -68,7 +81,7 @@ Se o índice do tipo primário não existir ou não for acessível, não improvi
 ```text
 Contexto incompleto
 Tipo: <tipo>
-Motivo: Índice agents/index/<tipo>.md não encontrado
+Motivo: Índice project-context/index/<tipo>.md não encontrado
 Ação solicitada: confirmar tipo ou fornecer índice correto
 ```
 
@@ -78,10 +91,13 @@ Se o índice existir, mantenha seu conteúdo carregado e prossiga para a Fase 4.
 
 Cada índice deve declarar:
 
-1. regras obrigatórias em `agents/rules/*`;
-2. referências sob gatilho em `agents/reference/*`;
+1. regras obrigatórias em `project-context/rules/*`;
+2. referências sob gatilho em `project-context/reference/*`;
 3. condições para carregar contexto adicional;
 4. lacunas conhecidas, se existirem.
+
+Não cite regras, índices, referências ou memórias inexistentes.
+Se um arquivo obrigatório não existir fisicamente, bloquear com `Contexto incompleto`.
 
 ### Fase 4. Pré-confirmação De Contexto
 
@@ -147,19 +163,20 @@ Orçamento inicial de contexto:
 ## Precedência
 
 1. `AGENTS.md`
-2. `agents/index/<tipo>.md`
-3. `agents/rules/*.md`
-4. `agents/reference/*.md`
-5. `agents/memory/*.md`, se existir
+2. `project-context/index/<tipo>.md`
+3. `project-context/rules/*.md`
+4. `project-context/reference/*.md`
+5. `project-context/memory/*.md`, se existir
 6. código, testes, schemas e documentação do projeto
 
 Regras:
 
 - `AGENTS.md` controla workflow, precedência e roteamento;
-- `agents/index/*` decide quais regras e referências entram no contexto;
-- `agents/rules/*` contém regras obrigatórias do projeto;
-- `agents/reference/*` contém exemplos, detalhes longos e material de apoio;
-- `agents/memory/*`, se existir, é complementar e nunca prevalece sobre este arquivo, índices ou regras;
+- `project-context/index/*` decide quais regras e referências entram no contexto;
+- `project-context/rules/*` contém regras obrigatórias do projeto;
+- `project-context/reference/*` contém exemplos, detalhes longos e material de apoio;
+- `project-context/memory/*`, se existir, é complementar e nunca prevalece sobre este arquivo, índices ou regras;
+- `README.md`, `docs/`, `_docs/`, prompts, comentários soltos ou conversas anteriores não substituem `project-context/` como fonte canônica das regras do projeto;
 - código e contratos reais devem ser respeitados como evidência técnica, mas não substituem o workflow.
 
 ## Estrutura De Contexto
@@ -167,7 +184,7 @@ Regras:
 Índices esperados:
 
 ```text
-agents/index/
+project-context/index/
   feature.md
   ui.md
   contract.md
@@ -182,7 +199,7 @@ agents/index/
 Regras esperadas:
 
 ```text
-agents/rules/
+project-context/rules/
   operational_rules.md
   architecture_rules.md
   diagnostic_rules.md
@@ -197,13 +214,13 @@ agents/rules/
 Referências opcionais:
 
 ```text
-agents/reference/
+project-context/reference/
 ```
 
 Memória opcional:
 
 ```text
-agents/memory/
+project-context/memory/
 ```
 
 Arquivos inexistentes devem ser omitidos da pré-confirmação. Não crie nem cite arquivos vazios apenas para parecer completo.

@@ -29,6 +29,9 @@ Classifique pelo papel que o fragmento deve cumprir no runtime do agente, não p
 - não classificar workflow central como regra de domínio;
 - se um fragmento mistura regra e exemplo, separar em fragmentos menores antes de concluir;
 - quando um fragmento puder afetar comportamento futuro do agente, preferir `rules` a `reference`, salvo quando for apenas exemplo.
+- ao iniciar, marcar `classify` como `in_progress` em `.hardless/manifests/run-state.json`;
+- ao concluir a classificação, marcar `classify` como `produced`;
+- marcar `classify` como `validated` quando todos os fragmentos relevantes tiverem papel, confiança e destino recomendados.
 
 ## Heurística De Decisão
 
@@ -47,3 +50,4 @@ Classifique pelo papel que o fragmento deve cumprir no runtime do agente, não p
 - motivo curto da escolha;
 - arquivo de destino recomendado;
 - indicação se o fragmento precisa ser quebrado novamente.
+- atualização do checkpoint da fase.

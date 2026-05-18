@@ -22,6 +22,30 @@ Em vez de tratar essas fontes como contrato cru de runtime, o kit orienta a LLM 
 4. sintetizar uma estrutura canônica;
 5. validar a saída antes de concluir.
 
+Ele também deve permitir retomada confiável quando a execução for interrompida no meio do processo.
+
+## O Que O Kit Faz
+
+Na prática, o kit orienta a LLM a pegar instruções espalhadas e reorganizar isso em um pacote menor, com papéis bem definidos:
+
+- `AGENTS.md`
+  - dono do workflow, precedência e roteamento
+- `project-context/index/*`
+  - entrada por tipo de tarefa
+- `project-context/rules/*`
+  - regras obrigatórias do projeto
+- `project-context/reference/*`
+  - apoio, exemplos e contratos longos
+- `project-context/memory/*`
+  - memória complementar persistente, quando fizer sentido
+- `.hardless/manifests/run-state.json`
+  - checkpoint de retomada por fase
+- `.hardless/manifests/external-references-report.json`
+  - relatório de dependências externas citadas por `project-context/`
+
+O kit não existe para inventar documentação nova.
+Ele existe para reorganizar, consolidar e validar o que já veio das fontes do projeto.
+
 ## O Que Tem Aqui
 
 - [SKILL.md](SKILL.md)
@@ -36,6 +60,10 @@ Em vez de tratar essas fontes como contrato cru de runtime, o kit orienta a LLM 
   - contratos mínimos para fragmentos e artefatos
 - `manifests/`
   - política de nomenclatura e metadados do kit
+- `.hardless/manifests/run-state.json`
+  - checkpoint da execução por fase no projeto gerado
+- `.hardless/manifests/external-references-report.json`
+  - inventário das dependências externas citadas por `project-context/`
 
 ## Para Quem É
 
@@ -52,6 +80,28 @@ Não use este kit esperando:
 - plugin de editor pronto;
 - backend cloud;
 - automação completa de todas as fases sem revisão humana.
+
+## Resultado Esperado
+
+Quando o fluxo é bem executado, o resultado esperado é:
+
+- um `AGENTS.md` enxuto e centralizador;
+- uma pasta `project-context/` que concentra as regras do projeto;
+- regras distribuídas por papel operacional, em vez de ficarem misturadas;
+- relatório explícito quando `project-context/` ainda depender de arquivos externos;
+- checkpoint suficiente para retomada após interrupção.
+
+Os status finais esperados do fechamento são:
+
+- `ready`
+- `degraded-but-usable`
+- `needs-followup`
+
+Na validação intermediária, a LLM também pode classificar o pacote como:
+
+- `valid`
+- `degraded`
+- `blocked`
 
 ## Instalação
 
@@ -100,6 +150,28 @@ meu-projeto/
 
 Para o uso atual do kit, prefira deixá-lo dentro do projeto alvo em vez de instalar globalmente numa pasta geral de skills do editor.
 
+## O Que Você Precisa Entregar Para A LLM
+
+O kit funciona melhor quando o usuário entrega ou aponta claramente:
+
+- o conjunto de fontes que devem ser reorganizadas;
+- o objetivo do trabalho;
+- se a LLM deve apenas analisar ou já aplicar a reorganização;
+- se existem restrições de escopo para o pacote final.
+
+Exemplos de fontes comuns:
+
+- `AGENTS.md`
+- docs internas
+- specs
+- `_docs/`
+- `CLAUDE.md`
+- `.cursorrules`
+- regras soltas em Markdown
+- convenções de projeto
+
+Se você não apontar fontes, a LLM ainda pode descobrir parte do material, mas o processo fica mais sujeito a lacunas.
+
 ## O Que O Humano Deve Fazer
 
 1. Garantir que esta pasta esteja disponível no ambiente em que a LLM vai operar.
@@ -107,6 +179,7 @@ Para o uso atual do kit, prefira deixá-lo dentro do projeto alvo em vez de inst
 3. Apontar a LLM para [SKILL.md](SKILL.md).
 4. Fornecer as fontes cruas do projeto alvo.
 5. Revisar o resultado quando a validação terminar em `degraded` ou quando o fechamento indicar `needs-followup`.
+6. Se a execução for interrompida, pedir retomada a partir do último checkpoint validado.
 
 ## O Que A LLM Deve Fazer
 
@@ -115,6 +188,7 @@ Para o uso atual do kit, prefira deixá-lo dentro do projeto alvo em vez de inst
 3. Ler apenas os prompts, templates, references e schemas necessários para a fase atual.
 4. Gerar uma saída canônica, pequena e neutra.
 5. Bloquear a conclusão quando o contrato mínimo falhar.
+6. Manter `.hardless/manifests/run-state.json` atualizado a cada fase.
 
 ## Prompt Pronto Para Colar
 
@@ -128,11 +202,25 @@ Leia primeiro o `README.md` e depois o `SKILL.md` dentro de `./hardless-skill-ki
 Quero que você use o Hardless Skill Kit para analisar e reorganizar as regras e instruções deste projeto seguindo o fluxo:
 discover -> snapshot -> fragment -> classify -> synthesize -> validate -> export/apply -> closeout-review
 
+Objetivo deste trabalho:
+- consolidar as regras do projeto em um pacote mais operacional;
+- manter `project-context/` como fonte canônica das regras;
+- deixar `AGENTS.md` apenas como dono do workflow, da precedência e do roteamento.
+
 Não improvise a árvore final.
 Use os prompts, templates, references, schemas e manifests do kit apenas quando necessários para a fase atual.
 
 O `AGENTS.md` final deve ser apenas o centralizador do workflow, da precedência e do roteamento.
-Não coloque regras de domínio, arquitetura, UI, contrato, segurança ou operação diretamente no `AGENTS.md`; coloque essas regras nos arquivos adequados em `agents/rules/*`.
+Não coloque regras de domínio, arquitetura, UI, contrato, segurança ou operação diretamente no `AGENTS.md`; coloque essas regras nos arquivos adequados em `project-context/rules/*`.
+
+Se algum arquivo dentro de `project-context/` precisar citar material fora dessa pasta, isso pode permanecer quando for parte real do contrato operacional do projeto. Nesse caso, registre essas dependências em `.hardless/manifests/external-references-report.json` e me avise explicitamente no fechamento.
+
+Mantenha `.hardless/manifests/run-state.json` atualizado durante o processo para marcar:
+- fases `not_started`;
+- fases `in_progress`;
+- fases `produced`;
+- fases `validated`;
+- fases `failed`.
 
 Antes de sintetizar os arquivos finais, produza um mapa de cobertura simples relacionando:
 - fragmento ou regra de origem;
@@ -141,7 +229,15 @@ Antes de sintetizar os arquivos finais, produza um mapa de cobertura simples rel
 - pendência, conflito ou baixa confiança, se houver.
 
 Se houver ambiguidade relevante, conflito entre fontes ou falta de material suficiente, explicite isso em vez de forçar uma estrutura artificial.
-Ao terminar, faça uma revisão final das pendências, recomende a melhor decisão para cada uma e confirme se `AGENTS.md` e a pasta `agents/` ficaram realmente utilizáveis.
+
+Se a execução cair no meio, quero poder retomar a partir da última fase `validated`, sem confiar em fase apenas `in_progress` ou só `produced`.
+
+No fechamento, eu quero:
+- pendências restantes;
+- decisão recomendada para cada pendência relevante;
+- classificação final do resultado como `ready`, `degraded-but-usable` ou `needs-followup`;
+- confirmação de que `AGENTS.md` e `project-context/` ficaram realmente utilizáveis;
+- aviso explícito sobre referências externas encontradas em `project-context/`.
 ```
 
 Se a pasta estiver em outro caminho dentro do projeto, ajuste apenas o path no prompt.
@@ -160,9 +256,10 @@ Agora faça o fechamento do Hardless Skill Kit sobre o que você acabou de gerar
 3. Para cada uma, me diga qual decisão você recomenda e por quê.
 4. Revise os artefatos gerados e confirme se:
    - `AGENTS.md` está completo, centralizador e apontando para o novo método;
-   - `AGENTS.md` não contém regras que deveriam estar em `agents/rules/*`;
-   - as regras necessárias já estão distribuídas na pasta `agents/`;
-   - os índices em `agents/index/*` apontam apenas para regras e referências existentes;
+   - `AGENTS.md` não contém regras que deveriam estar em `project-context/rules/*`;
+   - as regras necessárias já estão distribuídas na pasta `project-context/`;
+   - os índices em `project-context/index/*` apontam apenas para regras e referências existentes;
+   - dependências externas citadas por arquivos em `project-context/` foram registradas em `.hardless/manifests/external-references-report.json`;
    - o mapa de cobertura mostra destino para as regras relevantes das fontes originais;
    - não ficaram categorias vazias, artificiais ou redundantes;
    - há algum ponto em que a estrutura ainda esteja fraca, degradada ou dependente de inferência.
@@ -173,13 +270,31 @@ Agora faça o fechamento do Hardless Skill Kit sobre o que você acabou de gerar
 
 Esse fechamento é importante porque o kit pode terminar com status útil, mas ainda deixar decisões abertas para revisão humana.
 
+## Prompt Curto De Retomada
+
+Se a execução cair ou parar no meio, use algo assim:
+
+```text
+Retome o processo do Hardless Skill Kit a partir do estado atual.
+
+Leia `./hardless-skill-kit/SKILL.md`, releia `.hardless/manifests/run-state.json` e continue a partir da última fase `validated`.
+
+Não trate fase apenas `produced` como concluída.
+Se houver dependências externas já detectadas, preserve e atualize `.hardless/manifests/external-references-report.json`.
+
+No fim, me diga:
+- de qual fase você retomou;
+- o que precisou ser reexecutado;
+- se o resultado final ficou `ready`, `degraded-but-usable` ou `needs-followup`.
+```
+
 ## Estrutura Canônica Esperada
 
 O kit orienta a geração de algo próximo disso:
 
 ```text
 AGENTS.md
-agents/
+project-context/
   index/
   rules/
   reference/
@@ -204,7 +319,7 @@ Também é esperado que, no fim, a LLM:
 
 - explicite pendências restantes, se houver;
 - recomende uma decisão para cada pendência relevante;
-- faça uma revisão final do `AGENTS.md` e da pasta `agents/`;
+- faça uma revisão final do `AGENTS.md` e da pasta `project-context/`;
 - confirme se o método novo ficou realmente operacional.
 
 ## Fluxo Recomendado de Uso
@@ -232,6 +347,9 @@ Você está usando o kit corretamente quando:
 
 - nada distribuível pode citar projetos reais usados como inspiração;
 - a árvore final não deve ser inventada livremente;
+- `AGENTS.md` não deve virar depósito de regra de domínio;
+- `project-context/` deve concentrar as regras do projeto;
 - categorias sem material suficiente devem ser omitidas;
+- referências externas dentro de `project-context/` não devem ser escondidas; devem ser reportadas;
 - templates e references existem para reduzir deriva, não para serem copiados cegamente;
 - `README.md` é para o humano, `SKILL.md` é para a LLM.
